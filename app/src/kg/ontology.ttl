@@ -1,0 +1,76 @@
+@prefix sus: <http://example.org/sus/ontology#> .
+@prefix ibge: <http://example.org/ibge/ontology#> .
+@prefix pbf: <http://example.org/pbf/ontology#> .
+@prefix cnes: <http://example.org/cnes/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ==========================================
+# CLASSES
+# ==========================================
+
+ibge:Municipality a rdfs:Class ;
+    rdfs:label "Municipality" ;
+    rdfs:comment "Brazilian administrative municipality identified by IBGE 6-digit code." .
+
+sus:HealthSnapshot a rdfs:Class ;
+    rdfs:label "Regional Health and Socioeconomic Snapshot" ;
+    rdfs:comment "Annual combined health, demographic, infrastructure, and welfare compliance state for a municipality." .
+
+# ==========================================
+# PROPERTIES
+# ==========================================
+
+# Spatial & Linkage Predicates
+ibge:hasCode6 a rdf:Property ;
+    rdfs:domain ibge:Municipality ;
+    rdfs:range xsd:string .
+
+sus:forMunicipality a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range ibge:Municipality .
+
+sus:hasYear a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:integer .
+
+# Demographic Baseline (IBGE)
+ibge:totalPopulation a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:integer .
+
+# Health Outcomes & Demographics (SINAN)
+sus:diseaseCode a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:string .
+
+sus:totalCases a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:integer .
+
+sus:incidenceRatePer100k a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:float .
+
+sus:racialDisparityIndex a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:float .
+
+# Health Infrastructure (CNES)
+cnes:facilityCount a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:integer .
+
+# Welfare Conditionality Metrics (MDS / PBF)
+pbf:overallHealthComplianceRate a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:float .
+
+pbf:prenatalComplianceRate a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:float .
+
+pbf:childHealthComplianceRate a rdf:Property ;
+    rdfs:domain sus:HealthSnapshot ;
+    rdfs:range xsd:float .

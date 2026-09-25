@@ -1,9 +1,0 @@
-8 3
-      1  Rede geral de esgoto ou pluvial                    A11,A12,B10,C10
-      2  Fossa séptica                                      A21,A22,A23,A24,B20,C20
-      3  Fossa rudimendar                                   A31,A32,B30,C30
-      4  Vala                                               A41,A42,B40,C40
-      5  Rio, lago ou mar                                   B50,C50
-      6  Outro escoadouro                                   A61,A62,B60,C60
-      7  Não sabe o tipo de escoadouro                      A71,A72
-      8  Não tem instalação sanitária                       A81,A82,B80,C80

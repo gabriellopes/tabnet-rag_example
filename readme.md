@@ -4,6 +4,8 @@ obj -> merge elements from different datasets onto a common pool so newly neural
 
 context -> which diseases are more tendly to be present depending on the region and their distance to SUS-programee
 
+    . Adjusted Mortality Rate=f(Disease Incidence,PBF Coverage,ESF Primary Care Coverage,Income Per Capita)
+
 ## proj structure
 
 
