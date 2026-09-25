@@ -1,0 +1,14 @@
+finetuner:
+  enabled: false
+  active_strategy: "peft" # Options: peft, sft
+  strategies:
+    peft:
+      method: "lora"
+      r: 8
+      lora_alpha: 16
+      target_modules: ["q_proj", "v_proj"]
+      epochs: 3
+      batch_size: 16
+    sft:
+      learning_rate: 2.0e-5
+      epochs: 5

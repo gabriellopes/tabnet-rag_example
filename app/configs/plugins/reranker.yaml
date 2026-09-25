@@ -1,0 +1,10 @@
+reranker:
+  enabled: true
+  active_strategy: "mmr" # Options: mmr, cohere
+  strategies:
+    mmr:
+      lambda_mult: 0.5
+      top_k: 5
+    cohere:
+      model: "rerank-english-v3.0"
+      top_n: 3

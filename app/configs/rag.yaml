@@ -1,0 +1,16 @@
+rag:
+
+  embedding:
+    model_name: "text-embedding-3-small"
+    dimensions: 1536
+
+  vector_store:
+    provider: "chroma"
+    collection_name: "datasus_ibge"
+
+  retrieval:
+    top_k: 10
+    
+  generation:
+    model: "gpt-4o-mini"
+    temperature: 0.2
