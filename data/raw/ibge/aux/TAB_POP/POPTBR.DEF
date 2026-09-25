@@ -1,0 +1,29 @@
+; População Residente - Estimativas para o TCU - Brasil
+ADADOS\POPTBR??.dbf
+
+EPopulação estimada,             POPULACAO,    ANO,              Ano
+LMunicípio,                      MUNIC_RES,    1,  CNV\br_municip.cnv
+SMunicípio,                      MUNIC_RES,    1,  CNV\br_municip.cnv
+LCapital,                        MUNIC_RES,    1,  CNV\br_capital.cnv
+CCapital,                        MUNIC_RES,    1,  CNV\br_capital.cnv
+SCapital,                        MUNIC_RES,    1,  CNV\br_capital.cnv
+LRegião de Saúde (CIR),          MUNIC_RES,    1,  CNV\br_regsaud.cnv
+SRegião de Saúde (CIR),          MUNIC_RES,    1,  CNV\br_regsaud.cnv
+LMacrorregião de Saúde,          MUNIC_RES,    1,  CNV\br_macsaud.cnv
+SMacrorregião de Saúde,          MUNIC_RES,    1,  CNV\br_macsaud.cnv
+LMicrorregião IBGE,              MUNIC_RES,    1,  CNV\br_micibge.cnv
+SMicrorregião IBGE,              MUNIC_RES,    1,  CNV\br_micibge.cnv
+LRegião Metropolitana - RIDE,    MUNIC_RES,    1,  CNV\br_regmetr.cnv
+SRegião Metropolitana - RIDE,    MUNIC_RES,    1,  CNV\br_regmetr.cnv
+LTerritório da Cidadania,        MUNIC_RES,    1,  CNV\br_terrcid.cnv
+STerritório da Cidadania,        MUNIC_RES,    1,  CNV\br_terrcid.cnv
+LMesorregião PNDR,               MUNIC_RES,    1,  CNV\br_pndr.cnv
+SMesorregião PNDR,               MUNIC_RES,    1,  CNV\br_pndr.cnv
+SAmazônia Legal,                 MUNIC_RES,    1,  CNV\br_amazlegal.cnv
+SSemiárido,                      MUNIC_RES,    1,  CNV\br_semiarido.cnv
+SFaixa de Fronteira,             MUNIC_RES,    1,  CNV\br_frontfaixa.cnv
+SZona de Fronteira,              MUNIC_RES,    1,  CNV\br_frontzona.cnv
+SMunicípio de extrema pobreza,   MUNIC_RES,    1,  CNV\br_extrpobrez.cnv
+LAno,                            ANO,          1,  cnv\ANO.CNV
+CAno,                            ANO,          1,  cnv\ANO.CNV
+

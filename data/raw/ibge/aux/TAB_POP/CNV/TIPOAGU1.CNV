@@ -1,0 +1,21 @@
+20 2 L
+     01  Rede geral - canalizada em pelo menos um cômodo      A1,B1
+     02  Rede geral - canalizada só na propriedade/terreno    A4,B4
+     03  Rede geral - sem informação de canalização           C1
+     04  Poço ou nascente - canaliz em pelo menos um cômodo   A2,B2
+     05  Poço ou nascente - sem canalização interna           A5
+     06  Poço ou nascente - canaliz só na propried/terreno    B7
+     07  Poço ou nascente - não canalizada                    B8
+     08  Poço ou nascente - sem informação de canalização     C2
+     09  Outra forma - canalizada em pelo menos um cômodo     A3,B3
+     10  Outra forma - sem canalização interna                A6
+     11  Outra forma - canalização só na propriedade/terren   B9
+     12  Outra forma - não canalizada                         B0
+     13  Outra forma - Poço ou nascente fora da propriedade   C3
+     14  Outra forma - Carro-pipa                             C4
+     15  Outra forma - Água da chuva armazenada em cisterna   C5
+     16  Outra forma - Água da chuva armazenada de outra form C6
+     17  Outra forma - Rio, açude, lago ou igarapé            C7
+     18  Outra forma - Poço ou nascente na aldeia             C8
+     19  Outra forma - Poço ou nascente fora da aldeia        C9
+     20  Outra forma - Outra                                  C0

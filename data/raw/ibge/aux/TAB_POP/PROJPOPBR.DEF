@@ -1,0 +1,21 @@
+; Projeção da População do Brasil por sexo e idade simples: 2000-2060
+ADADOS\projbr??.dbf
+
+LAno,                            ANO,          1,  CNV\anoproj60.cnv
+CAno,                            ANO,          1,  CNV\anoproj60.cnv
+LSexo,                           SEXO,         1,  CNV\sexomf.cnv
+CSexo,                           SEXO,         1,  CNV\sexomf.cnv
+SSexo,                           SEXO,         1,  CNV\sexomf.cnv
+LIdade simples,                  FXETARIA,     1,  CNV\fxidadproj0.cnv
+CIdade simples,                  FXETARIA,     1,  CNV\fxidadproj0.cnv
+SIdade simples,                  FXETARIA,     1,  CNV\fxidadproj0.cnv
+LFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+CFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+SFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+LFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+CFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+SFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+EPopulação residente,            POPULACAO,    ANO,              Ano
+%Popul. residente (% na linha),  POPULACAO,    @coluna
+%Popul. residente (% na coluna), POPULACAO,    @linha
+

@@ -1,0 +1,42 @@
+41 4 L
+     01  0 a 4 anos não detalhado                           0004
+     02  Menor 1 ano                                        0000
+     03  1 ano                                              0101
+     04  2 anos                                             0202
+     05  3 anos                                             0303
+     06  4 anos                                             0404
+     07  5 anos                                             0505
+     08  6 anos                                             0606
+     09  7 anos                                             0707
+     10  8 anos                                             0808
+     11  9 anos                                             0909
+     12  5 a 9 anos não detalhado                           0509
+     13  10 anos                                            1010
+     14  11 anos                                            1111
+     15  12 anos                                            1212
+     16  13 anos                                            1313
+     17  14 anos                                            1414
+     18  10 a 14 anos não detalhado                         1014
+     19  15 anos                                            1515
+     20  16 anos                                            1616
+     21  17 anos                                            1717
+     22  18 anos                                            1818
+     23  19 anos                                            1919
+     24  15 a 19 anos não detalhado                         1519
+     25  20 a 24 anos                                       2024
+     26  25 a 29 anos                                       2529
+     27  30 a 34 anos                                       3034
+     28  35 a 39 anos                                       3539
+     29  40 a 49 anos não detalhado                         4049    
+     30  40 a 44 anos                                       4044
+     31  45 a 49 anos                                       4549
+     32  50 a 59 anos não detalhado                         5059
+     33  50 a 54 anos                                       5054
+     34  55 a 59 anos                                       5559
+     35  60 anos e mais não detalhado                       6099
+     36  60 a 64 anos                                       6064
+     37  65 a 69 anos                                       6569
+     38  70 a 74 anos                                       7074
+     39  75 a 79 anos                                       7579
+     40  80 anos e mais                                     8099
+     41  Idade ignorada                                     I000,R000

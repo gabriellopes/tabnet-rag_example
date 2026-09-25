@@ -1,0 +1,25 @@
+; Projeção da População das Unidades da Federação por sexo e grupos de idade: 2000-2030
+ADADOS\proj??.dbf
+
+LRegião,                         UFCOD,        1 , CNV\br_regiao.cnv
+CRegião,                         UFCOD,        1 , CNV\br_regiao.cnv
+SRegião,                         UFCOD,        1 , CNV\br_regiao.cnv
+LRegião/Unidade da Federação,    UFCOD,        1 , CNV\br_regiaouf.cnv
+LUnidade da Federação,           UFCOD,        1 , CNV\br_uf.cnv
+CUnidade da Federação,           UFCOD,        1 , CNV\br_ufsigla.cnv
+SUnidade da Federação,           UFCOD,        1 , CNV\br_ufalfa.cnv
+LAno,                            ANO,          1,  CNV\anoproj30.cnv
+CAno,                            ANO,          1,  CNV\anoproj30.cnv
+LSexo,                           SEXO,         1,  CNV\sexomf.cnv
+CSexo,                           SEXO,         1,  CNV\sexomf.cnv
+SSexo,                           SEXO,         1,  CNV\sexomf.cnv
+LFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+CFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+SFaixa_Etária 1,                 FXETARIA,     1,  CNV\fxidadproj1.cnv
+LFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+CFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+SFaixa_Etária 2,                 FXETARIA,     1,  CNV\fxidadproj2.cnv
+EPopulação residente,            POPULACAO,    ANO,              Ano
+%Popul. residente (% na linha),  POPULACAO,    @coluna
+%Popul. residente (% na coluna), POPULACAO,    @linha
+
