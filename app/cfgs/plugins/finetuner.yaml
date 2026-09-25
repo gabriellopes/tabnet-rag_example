@@ -1,14 +1,12 @@
 finetuner:
-  enabled: false
-  active_strategy: "peft" # Options: peft, sft
-  strategies:
-    peft:
-      method: "lora"
-      r: 8
-      lora_alpha: 16
-      target_modules: ["q_proj", "v_proj"]
-      epochs: 3
-      batch_size: 16
-    sft:
-      learning_rate: 2.0e-5
-      epochs: 5
+  active_plugin: "peft"  # Options: "peft", "sft", "fewshot"
+  
+  peft:
+    base_model_id: "Qwen/Qwen2.5-Coder-7B-Instruct"
+    output_dir: "models/peft_adapter"
+    r: 16
+    lora_alpha: 32
+    lora_dropout: 0.05
+    epochs: 3
+    batch_size: 2
+    learning_rate: 0.0002

@@ -1,10 +1,14 @@
 reranker:
-  enabled: true
-  active_strategy: "mmr" # Options: mmr, cohere
-  strategies:
-    mmr:
-      lambda_mult: 0.5
-      top_k: 5
-    cohere:
-      model: "rerank-english-v3.0"
-      top_n: 3
+  active_plugin: "mmr"  # Options: "mmr", "cohere", "cross_encoder"
+  
+  mmr:
+    lambda_mult: 0.5
+    top_k: 3
+
+  cohere:
+    model: "rerank-v3.5"
+    top_k: 3
+
+  cross_encoder:
+    model_name: "BAAI/bge-reranker-base"
+    top_k: 3

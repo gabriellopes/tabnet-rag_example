@@ -1,16 +1,16 @@
 rag:
-
   embedding:
-    model_name: "text-embedding-3-small"
-    dimensions: 1536
-
+    provider: "google"
+    model_name: "models/text-embedding-004"
+    dimensions: 768
+    
   vector_store:
     provider: "chroma"
     collection_name: "datasus_ibge"
 
   retrieval:
     top_k: 10
-    
+
   generation:
-    model: "gpt-4o-mini"
+    model: "gemini-2.5-flash"
     temperature: 0.2

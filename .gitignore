@@ -1,4 +1,9 @@
 # .gitignore
+# Environment variables and secrets
+.env
+.env.*
+*.env
+
 .venv/
 __pycache__/
 *.pyc
