@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-SUS | GraphRAG Knowledge Platform</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        sus: {
+                            50: '#eefbdf',
+                            100: '#d5f7b6',
+                            500: '#10b981',
+                            600: '#059669',
+                            800: '#065f46',
+                            900: '#022c22'
+                        },
+                        tech: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Marked JS for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .markdown-body ul { list-style-type: disc; margin-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+        .markdown-body ol { list-style-type: decimal; margin-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.625; }
+        .markdown-body strong { color: #38bdf8; font-weight: 600; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    </style>
+</head>
+<body class="h-full flex flex-col custom-scrollbar overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md px-4 lg:px-8 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <i class="fa-solid fa-diagram-project text-white text-lg"></i>
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <h1 class="font-bold text-lg text-white tracking-tight">AI-SUS</h1>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">GraphRAG</span>
+                </div>
+                <p class="text-xs text-slate-400 hidden sm:block">SINAN • IBGE • CNES • MDS/PBF Interoperability</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Health Check Indicator -->
+            <div id="statusPill" class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-medium text-slate-400">
+                <span id="statusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span id="statusText">Checking Backend...</span>
+            </div>
+
+            <!-- API Endpoint Settings Button -->
+            <button onclick="toggleConfigModal()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-all text-sm flex items-center space-x-2" title="Configure Backend URL">
+                <i class="fa-solid fa-sliders text-emerald-400"></i>
+                <span class="hidden md:inline text-xs font-medium">API Endpoint</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6 flex flex-col space-y-6">
+        
+        <!-- Welcome / Dataset Scope Banner -->
+        <div class="glass-panel rounded-2xl p-5 border border-slate-800/80 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <span>Brazilian Public Health Knowledge Graph</span>
+                        <i class="fa-solid fa-notes-medical text-emerald-400 text-sm"></i>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                        Query vector embeddings and RDF triplestores across spatial epidemiology, healthcare facilities, and social assistance datasets via LlamaIndex & Gemini.
+                    </p>
+                </div>
+                <!-- Dataset Source Badges -->
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide bg-blue-500/10 text-blue-400 border border-blue-500/20">SINAN (Dengue)</span>
+                    <span class="px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide bg-amber-500/10 text-amber-400 border border-amber-500/20">IBGE (Demographics)</span>
+                    <span class="px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">CNES (Facilities)</span>
+                    <span class="px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-wide bg-purple-500/10 text-purple-400 border border-purple-500/20">MDS (Bolsa Família)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preset Query Chips -->
+        <div class="space-y-2">
+            <span class="text-xs font-medium text-slate-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                Sample Multi-Domain Inquiries:
+            </span>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="setQuery('Which municipalities present high dengue incidence along with low PBF health compliance?')" class="text-xs bg-slate-900/80 hover:bg-emerald-950/40 hover:border-emerald-500/40 border border-slate-800 text-slate-300 hover:text-emerald-300 px-3 py-2 rounded-xl transition-all text-left flex items-center gap-2 group">
+                    <i class="fa-solid fa-virus text-slate-500 group-hover:text-emerald-400 text-xs"></i>
+                    <span>Dengue vs. PBF Health Compliance</span>
+                </button>
+                <button onclick="setQuery('What are the municipalities in Ceará with low CNES facility density and high epidemiological vulnerability?')" class="text-xs bg-slate-900/80 hover:bg-emerald-950/40 hover:border-emerald-500/40 border border-slate-800 text-slate-300 hover:text-emerald-300 px-3 py-2 rounded-xl transition-all text-left flex items-center gap-2 group">
+                    <i class="fa-solid fa-hospital-user text-slate-500 group-hover:text-emerald-400 text-xs"></i>
+                    <span>CNES Facility Density & Risk</span>
+                </button>
+                <button onclick="setQuery('Cross-reference IBGE population density with Bolsa Família coverage across high-risk dengue zones.')" class="text-xs bg-slate-900/80 hover:bg-emerald-950/40 hover:border-emerald-500/40 border border-slate-800 text-slate-300 hover:text-emerald-300 px-3 py-2 rounded-xl transition-all text-left flex items-center gap-2 group">
+                    <i class="fa-solid fa-chart-pie text-slate-500 group-hover:text-emerald-400 text-xs"></i>
+                    <span>IBGE & Social Welfare Overlay</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Query Input Box -->
+        <div class="glass-panel p-2 rounded-2xl border border-slate-800 flex flex-col gap-2 relative focus-within:border-emerald-500/50 transition-all shadow-xl">
+            <textarea id="queryInput" rows="3" placeholder="Ask a question across Brazilian public health, infrastructure, or social datasets..." class="w-full bg-transparent p-3 text-sm text-white placeholder-slate-500 focus:outline-none resize-none custom-scrollbar" onkeydown="handleKeyDown(event)"></textarea>
+
+            <div class="flex items-center justify-between border-t border-slate-800/80 pt-2 px-2">
+                <div class="text-[11px] text-slate-500 flex items-center gap-2">
+                    <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-[10px] text-slate-400">Ctrl + Enter</kbd>
+                    <span>to execute graph query</span>
+                </div>
+
+                <button id="submitBtn" onclick="submitQuery()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white text-xs font-semibold shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span>Query Graph</span>
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results / Output Container -->
+        <div id="responseContainer" class="hidden flex-1 space-y-4">
+            
+            <!-- Metadata Strip -->
+            <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+                <span class="flex items-center gap-2 font-medium text-slate-300">
+                    <i class="fa-solid fa-brain text-emerald-400"></i>
+                    GraphRAG Reasoning Output
+                </span>
+                <div class="flex items-center space-x-4">
+                    <span id="latencyBadge" class="flex items-center gap-1.5 text-slate-400">
+                        <i class="fa-regular fa-clock text-xs text-slate-500"></i>
+                        <span id="latencyTime">0.0s</span>
+                    </span>
+                    <button onclick="copyResponse()" class="hover:text-emerald-400 transition-colors flex items-center gap-1" title="Copy output text">
+                        <i class="fa-regular fa-copy text-xs"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Answer Box -->
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 shadow-2xl relative">
+                <!-- Executed Query Display -->
+                <div class="mb-4 pb-3 border-b border-slate-800/80">
+                    <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 block mb-1">Target Inquiry</span>
+                    <p id="executedQuestion" class="text-sm font-medium text-slate-200"></p>
+                </div>
+
+                <!-- Markdown Formatted Content -->
+                <div id="answerMarkdown" class="markdown-body text-sm text-slate-300 leading-relaxed"></div>
+            </div>
+        </div>
+
+        <!-- Loading State Indicator -->
+        <div id="loadingContainer" class="hidden glass-panel p-8 rounded-2xl border border-slate-800/80 flex flex-col items-center justify-center space-y-4 text-center">
+            <div class="relative w-12 h-12">
+                <div class="absolute inset-0 rounded-full border-2 border-slate-800"></div>
+                <div class="absolute inset-0 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin"></div>
+                <i class="fa-solid fa-diagram-next text-emerald-400 absolute inset-0 flex items-center justify-center text-xs"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-white">Traversing Knowledge Graph</h3>
+                <p class="text-xs text-slate-400 mt-1">Retrieving vector contexts, executing SPARQL graph expansion & MMR reranking...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Settings Modal for Endpoint Configuration -->
+    <div id="configModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-2xl border border-slate-800 p-6 shadow-2xl space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="font-semibold text-sm text-white flex items-center gap-2">
+                    <i class="fa-solid fa-network-wired text-emerald-400"></i>
+                    Backend Endpoint Settings
+                </h3>
+                <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3">
+                <label class="block text-xs font-medium text-slate-300">
+                    FastAPI Server URL (Ngrok or Localhost)
+                </label>
+                <div class="relative">
+                    <input type="text" id="apiBaseInput" placeholder="http://localhost:8000" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500/50">
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed">
+                    Paste your active <strong>Ngrok URL</strong> (e.g., <code>https://xxxx.ngrok-free.app</code>) to test remotely, or keep empty for same-origin requests.
+                </p>
+            </div>
+
+            <div class="flex items-center justify-end space-x-2 pt-2">
+                <button onclick="saveConfig()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition-all shadow-lg shadow-emerald-500/20">
+                    Save Endpoint & Check Health
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Storage Keys & Defaults
+        const STORAGE_KEY = 'aisus_api_endpoint';
+        let apiBaseUrl = localStorage.getItem(STORAGE_KEY) || '';
+
+        // DOM Element Cache
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const queryInput = document.getElementById('queryInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseContainer = document.getElementById('responseContainer');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const executedQuestion = document.getElementById('executedQuestion');
+        const answerMarkdown = document.getElementById('answerMarkdown');
+        const latencyTime = document.getElementById('latencyTime');
+        const apiBaseInput = document.getElementById('apiBaseInput');
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            apiBaseInput.value = apiBaseUrl;
+            checkBackendHealth();
+        });
+
+        // Toggle Settings Modal
+        function toggleConfigModal() {
+            const modal = document.getElementById('configModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Save Custom Endpoint Config
+        function saveConfig() {
+            let value = apiBaseInput.value.trim();
+            if (value.endsWith('/')) value = value.slice(0, -1);
+            apiBaseUrl = value;
+            localStorage.setItem(STORAGE_KEY, apiBaseUrl);
+            toggleConfigModal();
+            checkBackendHealth();
+        }
+
+        // Get Computed Full API URL
+        function getEndpoint(path) {
+            if (!apiBaseUrl) return path;
+            return `${apiBaseUrl}${path}`;
+        }
+
+        // Perform Live Health Check
+        async function checkBackendHealth() {
+            statusDot.className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
+            statusText.innerText = "Connecting...";
+
+            try {
+                const response = await fetch(getEndpoint('/'), { credentials: 'omit' });
+                if (response.ok) {
+                    const data = await response.json();
+                    statusDot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                    statusText.innerText = `Online (${data.service || 'AI-SUS'})`;
+                } else {
+                    throw new Error("Service returned non-200");
+                }
+            } catch (err) {
+                statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
+                statusText.innerText = "Offline / Unreachable";
+            }
+        }
+
+        // Quick Preset Query Loader
+        function setQuery(text) {
+            queryInput.value = text;
+            queryInput.focus();
+        }
+
+        // Shortcut Key Handler
+        function handleKeyDown(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                submitQuery();
+            }
+        }
+
+        // Main Query Execution
+        async function submitQuery() {
+            const question = queryInput.value.trim();
+            if (!question) return;
+
+            // UI Loading State
+            submitBtn.disabled = true;
+            responseContainer.classList.add('hidden');
+            loadingContainer.classList.remove('hidden');
+
+            const startTime = performance.now();
+
+            try {
+                const response = await fetch(getEndpoint('/api/v1/query'), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.detail || `Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const endTime = performance.now();
+                const elapsedSeconds = ((endTime - startTime) / 1000).toFixed(2);
+
+                // Populate Result Data
+                executedQuestion.innerText = data.question || question;
+                answerMarkdown.innerHTML = marked.parse(data.answer || "No response generated.");
+                latencyTime.innerText = `${elapsedSeconds}s`;
+
+                // Display Response
+                loadingContainer.classList.add('hidden');
+                responseContainer.classList.remove('hidden');
+
+            } catch (err) {
+                loadingContainer.classList.add('hidden');
+                alert(`GraphRAG Error: ${err.message}`);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Copy Response Clipboard Helper
+        function copyResponse() {
+            const textToCopy = answerMarkdown.innerText;
+            if (!textToCopy) return;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            alert("Response copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
